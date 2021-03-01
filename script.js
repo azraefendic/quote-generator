@@ -6,14 +6,12 @@ const newQuoteBtn = document.getElementById("new-quote");
 const loader = document.getElementById('loader');
 
 
-// Show Loading
-function loading() {
+function showLoadingSpinner() {
     loader.hidden = false;
     quoteContainer.hidden = true;
 }
 
-// Hide Loading
-function complete() {
+function removeLoadingSpinner() {
     if (!loader.hidden) {
         quoteContainer.hidden = false;
         loader.hidden = true;
@@ -22,7 +20,7 @@ function complete() {
 
 // Get Quote From API
 async function getQuote() {
-    loading();
+    showLoadingSpinner();
     // const proxyUrl = "https://cors-anywhere.herokuapp.com/";
     const apiUrl = "https://api.quotable.io/random";
     try {
@@ -41,8 +39,7 @@ async function getQuote() {
             quoteText.classList.remove('long-quote')
         }
         quoteText.innerText = data.content;
-        // Stop Loader, Show Quote
-        complete();
+        removeLoadingSpinner();
     } catch (error) {
         getQuote();
         console.log('Whoops, no quote', error);
